@@ -56,7 +56,8 @@ fn post_gcd(_request: &mut Request) -> IronResult<Response> {
         }
         Some(nums) => nums
     };
-    let mut numbers = Vec::new();
+    // Preventing reallocation bc we can
+    let mut numbers = Vec::with_capacity(unparsed_numbers.len());
     for unparsed in unparsed_numbers {
         // unparsed is still needed -> only lend reading rights
         match u64::from_str(&unparsed) {
